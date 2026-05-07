@@ -1,0 +1,31 @@
+# ASL Sign Language Recognizer
+# Full dependency list for reference (use `uv sync` to install)
+# Generated for Python 3.10+
+
+# ── Deep Learning ─────────────────────────────────────────
+tensorflow-cpu>=2.16.0        # Keras model training + inference (CPU optimized)
+
+# ── Computer Vision ───────────────────────────────────────
+mediapipe>=0.10.14            # Hand landmark detection (21 points, 3D)
+opencv-python>=4.9.0.80       # Webcam capture + image processing
+
+# ── Data Science ──────────────────────────────────────────
+numpy>=1.26.0                 # Numerical operations + array manipulation
+pandas>=2.2.0                 # CSV loading + dataset management
+scikit-learn>=1.4.0           # LabelEncoder, train_test_split, metrics
+
+# ── Web API ───────────────────────────────────────────────
+fastapi>=0.111.0              # REST API framework
+uvicorn[standard]>=0.29.0     # ASGI server for FastAPI
+python-multipart>=0.0.9       # File upload support (image inference)
+aiofiles>=23.2.1              # Async static file serving
+pydantic>=2.7.0               # Request/response validation
+
+# ── Utilities ─────────────────────────────────────────────
+pillow>=10.3.0                # Image loading + conversion
+tqdm>=4.66.0                  # Progress bars during landmark extraction
+
+# ── Development (optional) ────────────────────────────────
+jupyter>=1.0.0                # Notebook exploration
+matplotlib>=3.8.0             # Training curve plots
+seaborn>=0.13.0               # Confusion matrix visualization

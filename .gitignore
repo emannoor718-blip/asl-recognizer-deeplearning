@@ -1,0 +1,68 @@
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# ── Virtual Environment (uv) ──────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+
+# ── uv ───────────────────────────────────────────────────
+uv.lock
+
+# ── Trained Model Files (too large for git) ───────────────
+model/asl_model.keras
+model/asl_model_best.keras
+model/label_encoder.pkl
+
+# ── Dataset (too large for git) ───────────────────────────
+data/asl_alphabet_train/
+data/landmarks.csv
+data/hand_landmarker.task
+
+# ── Jupyter ───────────────────────────────────────────────
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+notebooks/class_distribution.png
+notebooks/confusion_matrix.png
+notebooks/landmark_skeletons.png
+notebooks/per_class_metrics.png
+notebooks/inference_speed.png
+
+# ── OS ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── VS Code ───────────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+# ── Environment variables ─────────────────────────────────
+.env
+.env.local
+
+# ── Logs ─────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Misc ─────────────────────────────────────────────────
+*.tmp
+*.bak
+frontend/static/favicon.ico

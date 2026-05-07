@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASL Recognizer — Real-time Sign Language Detection</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-logo">
+    <span class="dot"></span>
+    ASL Recognizer
+  </div>
+  <div class="nav-links">
+    <a href="/" class="active">Detection</a>
+    <a href="/about">About</a>
+    <a href="/api/docs" target="_blank">API Docs</a>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="live-dot"></span>
+    Real-time · CPU Optimized · MediaPipe + Keras
+  </div>
+  <h1>Sign Language <span>Recognition</span></h1>
+  <p>Point your camera at your hand and sign any ASL letter. The model detects 21 hand landmarks and classifies A–Z in under 2 ms.</p>
+</section>
+
+<!-- ── Stats bar ────────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value">26</div>
+    <div class="stat-label">ASL letters</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">21</div>
+    <div class="stat-label">Hand landmarks</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">99.18%</div>
+    <div class="stat-label">Accuracy</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">&lt;2ms</div>
+    <div class="stat-label">Inference time</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">CPU</div>
+    <div class="stat-label">No GPU needed</div>
+  </div>
+</div>
+
+<!-- ── Main layout ──────────────────────────────────────────── -->
+<div class="main-layout">
+
+  <!-- Left — Camera -->
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Live Camera</span>
+        <div class="status-row">
+          <div class="status-dot" id="status-dot"></div>
+          <span id="status-text" style="font-size:13px;color:var(--muted);">Checking API…</span>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!-- Camera view -->
+        <div class="camera-wrap">
+          <video id="video" autoplay muted playsinline></video>
+          <canvas id="canvas-overlay"></canvas>
+
+          <!-- Placeholder when camera is off -->
+          <div class="camera-placeholder" id="camera-placeholder">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+            <p>Click <strong>Start Camera</strong> to begin detection</p>
+          </div>
+
+          <!-- Prediction overlay (shown when running) -->
+          <div class="prediction-overlay hidden" id="prediction-overlay">
+            <div class="pred-letter" id="pred-letter">—</div>
+            <div class="pred-meta">
+              <div class="pred-confidence" id="pred-conf">—</div>
+              <div class="pred-label">Confidence</div>
+              <div class="pred-time" id="pred-time">— ms</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="cam-controls mt-1">
+          <button class="btn primary" id="btn-start">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Start Camera
+          </button>
+          <button class="btn" id="btn-stop" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            Stop
+          </button>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mt-2" style="background:var(--bg3);border-radius:var(--radius);padding:0.9rem 1rem;">
+          <p class="section-label">How to use</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;">
+            1. Click <strong style="color:var(--text)">Start Camera</strong> and allow webcam access<br>
+            2. Hold any ASL hand sign clearly in frame<br>
+            3. Hold the sign steady for <strong style="color:var(--accent)">1.2 seconds</strong> to add the letter to the word builder<br>
+            4. Use the word builder below to save words
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Word builder -->
+    <div class="card mt-2">
+      <div class="card-header">
+        <span class="card-title">Word Builder</span>
+        <span style="font-size:12px;color:var(--muted);">Hold each sign 1.2s to commit</span>
+      </div>
+      <div class="card-body">
+        <div class="word-display empty" id="word-display">Hold a sign to build a word…</div>
+        <div class="word-controls">
+          <button class="btn" id="btn-backspace">⌫ Backspace</button>
+          <button class="btn" id="btn-space">Space</button>
+          <button class="btn primary" id="btn-save">Save Word</button>
+          <button class="btn" id="btn-clear">Clear</button>
+        </div>
+        <div class="word-history mt-1" id="word-history"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="panel-stack">
+
+    <!-- Top-5 confidence -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Top 5 Predictions</span>
+      </div>
+      <div class="card-body">
+        <div class="conf-bar-list" id="conf-bars">
+          <p style="font-size:13px;color:var(--muted);">Start camera to see predictions</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skeleton viewer -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Hand Skeleton</span>
+        <span style="font-size:12px;color:var(--muted);">21 MediaPipe landmarks</span>
+      </div>
+      <div class="card-body" style="display:flex;justify-content:center;">
+        <canvas id="skeleton-canvas" width="220" height="220"></canvas>
+      </div>
+    </div>
+
+    <!-- API info card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Inference API</span>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">
+          POST an image to the FastAPI endpoint and receive the predicted letter, confidence score, top-5 probabilities, and inference time.
+        </p>
+        <div style="background:var(--bg3);border-radius:var(--radius);padding:10px 12px;font-family:monospace;font-size:12px;color:var(--accent);line-height:1.8;">
+          POST /api/predict<br>
+          <span style="color:var(--muted);">→ letter, confidence,<br>&nbsp;&nbsp; top5, landmarks, time_ms</span>
+        </div>
+        <a href="/api/docs" target="_blank" class="btn mt-1" style="display:flex;text-decoration:none;">
+          Open Swagger UI ↗
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Footer ────────────────────────────────────────────────── -->
+<footer>
+  Built with <span>MediaPipe + Keras + FastAPI</span> · Real-time ASL Recognition · CPU Optimized
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

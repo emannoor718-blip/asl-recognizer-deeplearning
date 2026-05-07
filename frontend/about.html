@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — ASL Recognizer</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <span class="dot"></span>
+    ASL Recognizer
+  </div>
+  <div class="nav-links">
+    <a href="/">Detection</a>
+    <a href="/about" class="active">About</a>
+    <a href="/api/docs" target="_blank">API Docs</a>
+  </div>
+</nav>
+
+<section class="about-hero">
+  <div class="hero-badge" style="margin-bottom:1.5rem;">
+    <span class="live-dot"></span>
+    Deep Learning · Computer Vision · Accessibility
+  </div>
+  <h1>About This Project</h1>
+  <p>A real-time American Sign Language recognition system built with MediaPipe hand landmark detection and a Keras dense neural network — achieving <strong style="color:var(--accent)">99.18% test accuracy</strong> while running fully on CPU with no GPU required.</p>
+</section>
+
+<div class="about-content">
+
+  <!-- Stats row -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:3rem;">
+    <div style="background:var(--bg2);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--accent);">99.18%</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">Test accuracy</div>
+    </div>
+    <div style="background:var(--bg2);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--accent);">26</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">ASL classes</div>
+    </div>
+    <div style="background:var(--bg2);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--accent);">63,580</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">Dataset samples</div>
+    </div>
+    <div style="background:var(--bg2);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--accent);">181,720</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">After augmentation</div>
+    </div>
+    <div style="background:var(--bg2);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--accent);">&lt;2ms</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">Inference time</div>
+    </div>
+    <div style="background:var(--bg2);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--accent);">~210K</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">Model parameters</div>
+    </div>
+  </div>
+
+  <!-- Mission -->
+  <section style="margin-bottom:3rem;">
+    <p class="section-label">Mission</p>
+    <h2 style="font-size:1.8rem;margin-bottom:1rem;">Bridging communication through AI</h2>
+    <p style="color:var(--muted);max-width:640px;line-height:1.8;">
+      Over 70 million deaf people worldwide use sign language as their primary means of communication. This project demonstrates how computer vision and deep learning can help bridge the communication gap — providing a fast, accessible, and highly accurate tool for real-time ASL letter recognition that works on any standard laptop or PC, no specialized hardware required.
+    </p>
+  </section>
+
+  <!-- Feature cards -->
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-card-icon">🖐</div>
+      <h3>MediaPipe Hands</h3>
+      <p>Google's MediaPipe Tasks API extracts 21 precise 3D hand landmarks per frame in real-time — running at 25+ FPS on CPU. Only clean, confident detections (~63,580 of 87,000 images) were used for training, ensuring high data quality.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🧠</div>
+      <h3>Keras Neural Network</h3>
+      <p>A 4-layer dense network (512→256→128→64→26) with BatchNormalization, Dropout, and L2 regularization classifies 63 normalized landmark coordinates into 26 ASL letters — achieving 99.18% test accuracy in under 2 milliseconds.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">📈</div>
+      <h3>Data Augmentation</h3>
+      <p>Training data was augmented 3× using Gaussian noise, random scale jitter (±10%), and 2D rotation (±15°) — expanding 45,430 training samples to 181,720 and making the model robust to real-world variation.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">⚡</div>
+      <h3>FastAPI Inference</h3>
+      <p>A production-grade REST API built with FastAPI accepts image uploads or raw landmarks and returns the predicted letter, confidence score, top-5 alternatives, landmark coordinates, and timing — all in a single JSON response.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">♿</div>
+      <h3>Accessibility Focus</h3>
+      <p>The word builder feature allows users to sign complete words and sentences by holding each sign steadily for 1.2 seconds — making the tool genuinely useful as an assistive communication aid.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">💻</div>
+      <h3>CPU Optimized</h3>
+      <p>Every design choice — landmark-based input instead of raw pixels, compact model size, efficient inference loop — is optimized for CPU. The model processes 8+ predictions per second on a standard laptop without any GPU.</p>
+    </div>
+  </div>
+
+  <!-- Pipeline -->
+  <section style="margin-bottom:3rem;">
+    <p class="section-label">How it works</p>
+    <h2 style="font-size:1.5rem;margin-bottom:1.5rem;">End-to-end pipeline</h2>
+    <div class="pipeline-steps">
+      <div class="pipeline-step">
+        <div class="ps-num">1</div>
+        <div class="ps-content">
+          <h4>Webcam frame capture</h4>
+          <p>The browser captures frames at ~8 predictions per second using the MediaStream API. Each frame is JPEG-compressed and sent to the FastAPI server via POST /api/predict.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="ps-num">2</div>
+        <div class="ps-content">
+          <h4>Hand detection — MediaPipe Tasks API</h4>
+          <p>MediaPipe HandLandmarker detects the hand and extracts 21 landmarks in 3D space (x, y, z per point = 63 floats). If no hand is detected, the API immediately returns hand_detected: false.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="ps-num">3</div>
+        <div class="ps-content">
+          <h4>Wrist-centered normalization</h4>
+          <p>All 21 landmarks are centered on the wrist (landmark 0) and scaled by the wrist-to-middle-MCP distance (landmark 9). This makes predictions fully invariant to hand size and position in the frame.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="ps-num">4</div>
+        <div class="ps-content">
+          <h4>Keras classification — 99.18% accuracy</h4>
+          <p>The normalized 63-float vector passes through the dense network (512→256→128→64→Softmax 26). The model outputs probability scores for all 26 ASL letters. Trained with cosine LR decay, label smoothing, and class weights.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="ps-num">5</div>
+        <div class="ps-content">
+          <h4>Result rendering</h4>
+          <p>The predicted letter, confidence, top-5 alternatives, and 21 landmark coordinates are returned as JSON. The frontend renders the letter overlay, draws the hand skeleton on canvas, and updates the confidence bars in real-time.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="ps-num">6</div>
+        <div class="ps-content">
+          <h4>Word builder</h4>
+          <p>When the same letter is detected consistently for 1.2 seconds, it is committed to the word builder. Users can build complete words, save them to history, and clear or backspace as needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Model details -->
+  <section style="margin-bottom:3rem;">
+    <p class="section-label">Model architecture</p>
+    <h2 style="font-size:1.5rem;margin-bottom:1rem;">Network design</h2>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;font-family:monospace;font-size:13px;color:var(--muted);line-height:2;margin-bottom:1rem;">
+      <span style="color:var(--accent);">Input</span> (63,) — 21 landmarks × (x, y, z)<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:#7F77DD;">Dense(512)</span> + BatchNorm + ReLU + Dropout(0.4) + L2<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:#7F77DD;">Dense(256)</span> + BatchNorm + ReLU + Dropout(0.35) + L2<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:#7F77DD;">Dense(128)</span> + BatchNorm + ReLU + Dropout(0.3) + L2<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:#7F77DD;">Dense(64)</span> &nbsp;+ BatchNorm + ReLU + Dropout(0.2) + L2<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:var(--accent);">Dense(26)</span> + Softmax — A–Z (26 classes)
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;">
+      <div style="background:var(--bg3);border-radius:var(--radius);padding:10px 14px;">
+        <div style="font-size:11px;color:var(--muted);">Parameters</div>
+        <div style="font-size:18px;font-weight:600;color:var(--text);">~210K</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--radius);padding:10px 14px;">
+        <div style="font-size:11px;color:var(--muted);">Best epoch</div>
+        <div style="font-size:18px;font-weight:600;color:var(--text);">64 / 100</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--radius);padding:10px 14px;">
+        <div style="font-size:11px;color:var(--muted);">Val accuracy</div>
+        <div style="font-size:18px;font-weight:600;color:var(--accent);">99.42%</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--radius);padding:10px 14px;">
+        <div style="font-size:11px;color:var(--muted);">Test accuracy</div>
+        <div style="font-size:18px;font-weight:600;color:var(--accent);">99.18%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech stack -->
+  <section style="margin-bottom:3rem;">
+    <p class="section-label">Technology stack</p>
+    <h2 style="font-size:1.5rem;margin-bottom:1rem;">Built with industry-standard tools</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.25rem;">
+      <div>
+        <p style="font-size:13px;font-weight:500;margin-bottom:8px;color:var(--text);">Model & ML</p>
+        <div class="tech-stack">
+          <span class="tech-pill accent">TensorFlow 2.21 / Keras</span>
+          <span class="tech-pill accent">MediaPipe 0.10+</span>
+          <span class="tech-pill">NumPy</span>
+          <span class="tech-pill">scikit-learn</span>
+          <span class="tech-pill">Pandas</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:13px;font-weight:500;margin-bottom:8px;color:var(--text);">Backend API</p>
+        <div class="tech-stack">
+          <span class="tech-pill accent">FastAPI</span>
+          <span class="tech-pill accent">Uvicorn</span>
+          <span class="tech-pill">Python 3.11</span>
+          <span class="tech-pill">Pydantic v2</span>
+          <span class="tech-pill">OpenCV</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:13px;font-weight:500;margin-bottom:8px;color:var(--text);">Frontend</p>
+        <div class="tech-stack">
+          <span class="tech-pill accent">Vanilla JS</span>
+          <span class="tech-pill">HTML5 Canvas</span>
+          <span class="tech-pill">CSS Variables</span>
+          <span class="tech-pill">Fetch API</span>
+          <span class="tech-pill">MediaStream API</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:13px;font-weight:500;margin-bottom:8px;color:var(--text);">Dev & Analysis</p>
+        <div class="tech-stack">
+          <span class="tech-pill accent">uv</span>
+          <span class="tech-pill">Jupyter</span>
+          <span class="tech-pill">Matplotlib</span>
+          <span class="tech-pill">Seaborn</span>
+          <span class="tech-pill">Swagger UI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset -->
+  <section style="margin-bottom:3rem;">
+    <p class="section-label">Dataset</p>
+    <h2 style="font-size:1.5rem;margin-bottom:0.75rem;">ASL Alphabet — Kaggle</h2>
+    <p style="color:var(--muted);line-height:1.8;margin-bottom:1rem;">
+      Training data sourced from the <a href="https://www.kaggle.com/datasets/grassknoted/asl-alphabet" target="_blank">ASL Alphabet dataset on Kaggle</a> — 87,000 images across 29 classes (A–Z plus del, nothing, space). MediaPipe HandLandmarker was run over each image to extract 21 landmark coordinates, converting the raw image dataset into a 63-feature CSV. Classes with insufficient detections (nothing) and motion-dependent letters (J, Z) were excluded, leaving 58,665 clean samples across 26 classes. Training data was augmented 3× to 181,720 samples.
+    </p>
+    <div class="tech-stack">
+      <span class="tech-pill accent">87,000 raw images</span>
+      <span class="tech-pill accent">63,580 detected samples</span>
+      <span class="tech-pill">58,665 clean samples</span>
+      <span class="tech-pill">181,720 after augmentation</span>
+      <span class="tech-pill">26 final classes</span>
+      <span class="tech-pill">63 features per sample</span>
+    </div>
+  </section>
+
+  <!-- Known limitations -->
+  <section>
+    <p class="section-label">Known limitations & mitigations</p>
+    <h2 style="font-size:1.5rem;margin-bottom:0.75rem;">Honest caveats</h2>
+    <div style="display:grid;gap:8px;">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--muted);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#FCEBEB;color:#791F1F;font-weight:500;">Unresolved</span>
+          <strong style="color:var(--text);">J and Z not supported</strong>
+        </div>
+        These letters require hand motion — impossible to classify from a single static landmark snapshot. A future LSTM-based temporal model using sequences of frames would resolve this.
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(0,229,195,0.2);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--muted);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#E1F5EE;color:#085041;font-weight:500;">Mitigated</span>
+          <strong style="color:var(--text);">N and M confusion</strong>
+        </div>
+        N (2 fingers over thumb) and M (3 fingers over thumb) are visually similar in static pose. <strong style="color:var(--accent);">Fixed in frontend:</strong> when model confidence is below 92%, a geometric check counts curled fingers using landmark y-coordinates to distinguish N from M — reducing confusion without any model retraining.
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(0,229,195,0.2);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--muted);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#E1F5EE;color:#085041;font-weight:500;">Mitigated</span>
+          <strong style="color:var(--text);">Lighting sensitivity</strong>
+        </div>
+        MediaPipe detection drops in poor lighting. <strong style="color:var(--accent);">Fixed in frontend:</strong> the app analyzes frame brightness every 3 seconds. When brightness drops below threshold, an amber warning banner appears on the camera feed — preventing silent failures.
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--muted);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#FCEBEB;color:#791F1F;font-weight:500;">Future work</span>
+          <strong style="color:var(--text);">Single hand only</strong>
+        </div>
+        The model processes one hand at a time. Two-handed ASL signs require dual-stream landmark extraction and a fusion model — planned as a future enhancement.
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Built with <span>MediaPipe + Keras + FastAPI</span> · 99.18% Test Accuracy · CPU Optimized · No GPU Required
+</footer>
+
+</body>
+</html>
