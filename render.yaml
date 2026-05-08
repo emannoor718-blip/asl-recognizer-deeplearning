@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: asl-recognizer
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: "2"
+      - key: TF_ENABLE_ONEDNN_OPTS
+        value: "0"
+    healthCheckPath: /api/health
