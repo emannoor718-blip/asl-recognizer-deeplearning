@@ -1,6 +1,6 @@
 # ASL Sign Language Recognizer
 
-> Real-time American Sign Language (A–Z) recognition using MediaPipe + Keras + FastAPI.
+> Real-time recognition of static American Sign Language (ASL) hand signs from a webcam, using MediaPipe hand landmarks and a compact Keras neural network. Runs on CPU with no GPU required.
 > **99.18% test accuracy** — fully CPU optimized, no GPU required.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
@@ -74,7 +74,7 @@ asl-recognizer/
 ### 1. Clone and setup environment
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/emannoor718-blip/asl-recognizer-deeplearning.git
 cd asl-recognizer
 uv sync
 ```
